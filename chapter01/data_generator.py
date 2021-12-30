@@ -6,6 +6,7 @@ from utils import block, debug
 with block('LOAD CTGAN'):
     pkl = './hotel_bookings.gan.pkl'
     gan = CTGANSynthesizer.load(pkl)
+    print(gan)
 
 
 with block('GENERATE SYNTHETIC DATA'):
@@ -22,7 +23,3 @@ with block('GENERATE PROFILE REPORT'):
     profile = ProfileReport(synthetic_data)
     target_location = "tmp/profile-report.html"
     profile.to_file(target_location)
-    
-    
-with block('INSPECT AND DEBUG'):
-    debug()
