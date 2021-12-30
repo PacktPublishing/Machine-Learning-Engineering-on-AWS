@@ -9,17 +9,17 @@ with block('LOAD CTGAN'):
     print(gan.__dict__)
 
 
-# with block('GENERATE SYNTHETIC DATA'):
-#     synthetic_data = gan.sample(10000)
-#     print(synthetic_data)
+with block('GENERATE SYNTHETIC DATA'):
+    synthetic_data = gan.sample(10000)
+    print(synthetic_data)
 
 
-# with block('SAVE TO CSV'):
-#     target_location = "tmp/bookings.all.csv"
-#     synthetic_data.to_csv(target_location, index=False)
+with block('SAVE TO CSV'):
+    target_location = "tmp/bookings.all.csv"
+    synthetic_data.to_csv(target_location, index=False)
 
 
-# with block('GENERATE PROFILE REPORT'):
-#     profile = ProfileReport(synthetic_data)
-#     target_location = "tmp/profile-report.html"
-#     profile.to_file(target_location)
+with block('GENERATE PROFILE REPORT'):
+    profile = ProfileReport(synthetic_data)
+    target_location = "tmp/profile-report.html"
+    profile.to_file(target_location)
