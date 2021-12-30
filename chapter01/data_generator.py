@@ -4,7 +4,8 @@ from utils import block, debug
 
 
 with block('LOAD CTGAN'):
-    gan = CTGANSynthesizer.load('./hotel_bookings.gan.pkl')
+    pkl = './hotel_bookings.gan.pkl'
+    gan = CTGANSynthesizer.load(pkl)
 
 
 with block('GENERATE SYNTHETIC DATA'):
