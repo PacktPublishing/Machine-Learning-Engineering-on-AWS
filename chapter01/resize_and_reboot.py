@@ -1,6 +1,5 @@
 import boto3
 import os
-from botocore.exceptions import ClientError 
 from time import sleep
 
 
