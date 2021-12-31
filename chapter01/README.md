@@ -80,8 +80,10 @@ BUCKET_NAME="mlengineering-on-aws"
 aws s3 mb s3://$BUCKET_NAME
 
 S3=s3://$BUCKET_NAME/datasets/bookings
-aws s3 cp tmp/bookings.train.csv $S3/bookings.train.csv
-aws s3 cp tmp/bookings.test.csv $S3/bookings.test.csv
+TRAIN=bookings.train.csv
+TEST=bookings.test.csv
+aws s3 cp tmp/bookings.train.csv $S3/$TRAIN
+aws s3 cp tmp/bookings.test.csv $S3/$TEST
 ```
 
 ## INSTALLING AND RUNNING AUTOGLUON
