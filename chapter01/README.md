@@ -76,11 +76,12 @@ Run the following commands
 ```
 python3 train_test_split.py
 
-BUCKET_NAME="mle-on-aws"
+BUCKET_NAME="mlengineering-on-aws"
 aws s3 mb s3://$BUCKET_NAME
 
-aws s3 cp tmp/bookings.train.csv s3://$BUCKET_NAME/datasets/bookings/bookings.train.csv
-aws s3 cp tmp/bookings.test.csv s3://$BUCKET_NAME/datasets/bookings/bookings.test.csv
+S3=s3://$BUCKET_NAME/datasets/bookings
+aws s3 cp tmp/bookings.train.csv $S3/bookings.train.csv
+aws s3 cp tmp/bookings.test.csv $S3/bookings.test.csv
 ```
 
 ## INSTALLING AND RUNNING AUTOGLUON
