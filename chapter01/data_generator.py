@@ -16,7 +16,11 @@ with block('GENERATE SYNTHETIC DATA'):
 
 with block('SAVE TO CSV'):
     target_location = "tmp/bookings.all.csv"
-    synthetic_data.to_csv(target_location, index=False)
+    print(target_location)
+    synthetic_data.to_csv(
+        target_location, 
+        index=False
+    )
 
 
 with block('GENERATE PROFILE REPORT'):
