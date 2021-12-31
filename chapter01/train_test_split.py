@@ -18,5 +18,7 @@ with block('TRAIN-TEST SPLIT'):
     
 
 with block('SAVE TO CSVs'):
-    train_df.to_csv('tmp/bookings.train.csv', index=False)
-    test_df.to_csv('tmp/bookings.test.csv', index=False)
+    train_df.to_csv('tmp/bookings.train.csv', 
+                    index=False)
+    test_df.to_csv('tmp/bookings.test.csv', 
+                   index=False)
