@@ -16,3 +16,22 @@ docker run  -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --entrypoint /aws-lamb
 curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
 curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"queryStringParameters":{"x":42}}'
 ```
+
+```
+wget https://bit.ly/344bLAF -O dlclambda.zip
+unzip dlclambda.zip
+
+chmod +x *.sh
+./build.sh
+./run.sh
+
+<open new tab>
+./invoke.sh
+```
+
+- create ECR repo
+- view push commands
+
+```
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 581320662326.dkr.ecr.us-east-1.amazonaws.com
+```
