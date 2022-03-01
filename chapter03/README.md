@@ -11,16 +11,9 @@ wget https://bit.ly/3h1KBx2 -O data/training_data.csv
 ```
 
 ```
-aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 763104351884.dkr.ecr.us-east-1.amazonaws.com
-TRAINING_IMAGE=763104351884.dkr.ecr.us-west-2.amazonaws.com/pytorch-training:1.8.1-cpu-py36-ubuntu18.04
-docker run -it -v `pwd`:/env -w /env $TRAINING_IMAGE python train.py
-```
-
-```
-docker build -t myfunction02 .
-docker run  -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --entrypoint /aws-lambda/aws-lambda-rie myfunction02:latest /opt/conda/bin/python -m awslambdaric app.handler
-curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}'
-curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"queryStringParameters":{"x":42}}'
+wget https://bit.ly/3Iz7zaV -O train.sh
+chmod +x train.sh
+./train.sh
 ```
 
 ```
