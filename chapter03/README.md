@@ -20,9 +20,14 @@ chmod +x train.sh
 wget https://bit.ly/3pt5mGN -O dlclambda.zip
 
 unzip dlclambda.zip
+cp model/model.pth app/model/model.pth
 
 chmod +x *.sh
 ./build.sh
+
+(check total size)
+docker images | grep dlclambda
+
 ./run.sh
 
 <open new tab>
