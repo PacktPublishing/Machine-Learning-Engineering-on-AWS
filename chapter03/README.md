@@ -28,10 +28,11 @@ chmod +x *.sh
 (check total size)
 docker images | grep dlclambda
 
-./download-rie.sh
+sudo ./download-rie.sh
 ./run.sh
 
 <open new tab>
+cd ch03
 ./invoke.sh
 ```
 
@@ -39,7 +40,7 @@ docker images | grep dlclambda
 - view push commands
 
 ```
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 581320662326.dkr.ecr.us-east-1.amazonaws.com
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 581320662326.dkr.ecr.us-west-2.amazonaws.com
 ```
 
 - create lambda
