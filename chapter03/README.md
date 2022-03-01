@@ -35,3 +35,22 @@ chmod +x *.sh
 ```
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 581320662326.dkr.ecr.us-east-1.amazonaws.com
 ```
+
+- create lambda
+- configure [10240 MB] [1 min]
+
+```
+{
+  "queryStringParameters": {
+    "x": 42
+  }
+}
+```
+
+- add trigger [API Gateway]
+- Create an API > HTTP API
+- Security: open
+
+```
+https://tedl9zcva7.execute-api.us-east-1.amazonaws.com/default/torchl-test?x=42
+```
