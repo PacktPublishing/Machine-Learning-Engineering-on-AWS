@@ -28,6 +28,7 @@ chmod +x *.sh
 (check total size)
 docker images | grep dlclambda
 
+./download-rie.sh
 ./run.sh
 
 <open new tab>
