@@ -61,3 +61,17 @@ aws ecr get-login-password --region us-west-2 | docker login --username AWS --pa
 ```
 https://tedl9zcva7.execute-api.us-east-1.amazonaws.com/default/torchl-test?x=42
 ```
+
+
+Getting started with AWS Deep Learning Containers
+Essential Prerequisites
+Training an ML Model
+Preparing the Lambda Container Image
+    Preparing ...
+    Testing the Lambda Container Image locally
+Pushing the Container Image to ECR
+    Creating an ECR Repository
+    Pushing the Container Image to ECR
+Completing the Serverless API Endpoint
+    Creating the Lambda Function for Inference
+    API Gateway
