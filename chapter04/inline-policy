@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "redshift-serverless:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "sqlworkbench:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "lakeformation:*",
+            "Resource": "*"
+        }
+    ]
+}
