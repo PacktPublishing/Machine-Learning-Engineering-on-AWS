@@ -1,0 +1,6 @@
+UNLOAD ('SELECT * FROM dev.public.bookings;') 
+TO 's3://<S3 BUCKET>/unloaded/'
+IAM_ROLE 'arn:aws:iam::<ACCOUNT ID>:role/service-role/<ROLE NAME>'
+FORMAT AS CSV DELIMITER ',' 
+PARALLEL ON
+HEADER;
