@@ -1,0 +1,371 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: basic-pipeline-
+  annotations: {pipelines.kubeflow.org/kfp_sdk_version: 1.6.3, pipelines.kubeflow.org/pipeline_compilation_time: '2022-07-30T13:37:41.294413',
+    pipelines.kubeflow.org/pipeline_spec: '{"description": "Basic pipeline", "name":
+      "Basic pipeline"}'}
+  labels: {pipelines.kubeflow.org/kfp_sdk_version: 1.6.3}
+spec:
+  entrypoint: basic-pipeline
+  templates:
+  - name: basic-pipeline
+    dag:
+      tasks:
+      - {name: download-dataset, template: download-dataset}
+      - name: evaluate-model
+        template: evaluate-model
+        dependencies: [process-data, train-model]
+        arguments:
+          artifacts:
+          - {name: process-data-df_test_data, from: '{{tasks.process-data.outputs.artifacts.process-data-df_test_data}}'}
+          - {name: train-model-model, from: '{{tasks.train-model.outputs.artifacts.train-model-model}}'}
+      - name: perform-sample-prediction
+        template: perform-sample-prediction
+        dependencies: [evaluate-model, train-model]
+        arguments:
+          artifacts:
+          - {name: train-model-model, from: '{{tasks.train-model.outputs.artifacts.train-model-model}}'}
+      - name: process-data
+        template: process-data
+        dependencies: [download-dataset]
+        arguments:
+          artifacts:
+          - {name: download-dataset-df_all_data, from: '{{tasks.download-dataset.outputs.artifacts.download-dataset-df_all_data}}'}
+      - name: train-model
+        template: train-model
+        dependencies: [process-data]
+        arguments:
+          artifacts:
+          - {name: process-data-df_training_data, from: '{{tasks.process-data.outputs.artifacts.process-data-df_training_data}}'}
+  - name: download-dataset
+    container:
+      args: [--df-all-data, /tmp/outputs/df_all_data/data]
+      command:
+      - sh
+      - -c
+      - (PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+        'pandas' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet
+        --no-warn-script-location 'pandas' --user) && "$0" "$@"
+      - sh
+      - -ec
+      - |
+        program_path=$(mktemp)
+        printf "%s" "$0" > "$program_path"
+        python3 -u "$program_path" "$@"
+      - |
+        def _make_parent_dirs_and_return_path(file_path: str):
+            import os
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            return file_path
+
+        def download_dataset(
+            df_all_data_path):
+
+            import pandas as pd
+
+            url="https://bit.ly/3POP8CI"
+
+            df_all_data = pd.read_csv(url)
+            print(df_all_data)
+            df_all_data.to_csv(df_all_data_path, header=True, index=False)
+
+        import argparse
+        _parser = argparse.ArgumentParser(prog='Download dataset', description='')
+        _parser.add_argument("--df-all-data", dest="df_all_data_path", type=_make_parent_dirs_and_return_path, required=True, default=argparse.SUPPRESS)
+        _parsed_args = vars(_parser.parse_args())
+
+        _outputs = download_dataset(**_parsed_args)
+      image: python:3.7
+    outputs:
+      artifacts:
+      - {name: download-dataset-df_all_data, path: /tmp/outputs/df_all_data/data}
+    metadata:
+      labels: {pipelines.kubeflow.org/kfp_sdk_version: 1.6.3, pipelines.kubeflow.org/pipeline-sdk-type: kfp}
+      annotations: {pipelines.kubeflow.org/component_spec: '{"implementation": {"container":
+          {"args": ["--df-all-data", {"outputPath": "df_all_data"}], "command": ["sh",
+          "-c", "(PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+          ''pandas'' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet
+          --no-warn-script-location ''pandas'' --user) && \"$0\" \"$@\"", "sh", "-ec",
+          "program_path=$(mktemp)\nprintf \"%s\" \"$0\" > \"$program_path\"\npython3
+          -u \"$program_path\" \"$@\"\n", "def _make_parent_dirs_and_return_path(file_path:
+          str):\n    import os\n    os.makedirs(os.path.dirname(file_path), exist_ok=True)\n    return
+          file_path\n\ndef download_dataset(\n    df_all_data_path):\n\n    import
+          pandas as pd\n\n    url=\"https://bit.ly/3POP8CI\"\n\n    df_all_data =
+          pd.read_csv(url)\n    print(df_all_data)\n    df_all_data.to_csv(df_all_data_path,
+          header=True, index=False)\n\nimport argparse\n_parser = argparse.ArgumentParser(prog=''Download
+          dataset'', description='''')\n_parser.add_argument(\"--df-all-data\", dest=\"df_all_data_path\",
+          type=_make_parent_dirs_and_return_path, required=True, default=argparse.SUPPRESS)\n_parsed_args
+          = vars(_parser.parse_args())\n\n_outputs = download_dataset(**_parsed_args)\n"],
+          "image": "python:3.7"}}, "name": "Download dataset", "outputs": [{"name":
+          "df_all_data", "type": "String"}]}', pipelines.kubeflow.org/component_ref: '{}'}
+  - name: evaluate-model
+    container:
+      args: [--model, /tmp/inputs/model/data, --df-test-data, /tmp/inputs/df_test_data/data]
+      command:
+      - sh
+      - -c
+      - (PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+        'pandas' 'joblib' 'sklearn' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m
+        pip install --quiet --no-warn-script-location 'pandas' 'joblib' 'sklearn'
+        --user) && "$0" "$@"
+      - sh
+      - -ec
+      - |
+        program_path=$(mktemp)
+        printf "%s" "$0" > "$program_path"
+        python3 -u "$program_path" "$@"
+      - |
+        def evaluate_model(
+            model_path,
+            df_test_data_path):
+
+            import pandas as pd
+            from joblib import load
+
+            df_test_data = pd.read_csv(df_test_data_path)
+
+            X_test = df_test_data['management_experience_months'].values
+            y_test = df_test_data['monthly_salary'].values
+
+            model = load(model_path)
+            print(model.score(X_test.reshape(-1, 1), y_test))
+
+        import argparse
+        _parser = argparse.ArgumentParser(prog='Evaluate model', description='')
+        _parser.add_argument("--model", dest="model_path", type=str, required=True, default=argparse.SUPPRESS)
+        _parser.add_argument("--df-test-data", dest="df_test_data_path", type=str, required=True, default=argparse.SUPPRESS)
+        _parsed_args = vars(_parser.parse_args())
+
+        _outputs = evaluate_model(**_parsed_args)
+      image: python:3.7
+    inputs:
+      artifacts:
+      - {name: process-data-df_test_data, path: /tmp/inputs/df_test_data/data}
+      - {name: train-model-model, path: /tmp/inputs/model/data}
+    metadata:
+      labels: {pipelines.kubeflow.org/kfp_sdk_version: 1.6.3, pipelines.kubeflow.org/pipeline-sdk-type: kfp}
+      annotations: {pipelines.kubeflow.org/component_spec: '{"implementation": {"container":
+          {"args": ["--model", {"inputPath": "model"}, "--df-test-data", {"inputPath":
+          "df_test_data"}], "command": ["sh", "-c", "(PIP_DISABLE_PIP_VERSION_CHECK=1
+          python3 -m pip install --quiet --no-warn-script-location ''pandas'' ''joblib''
+          ''sklearn'' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet
+          --no-warn-script-location ''pandas'' ''joblib'' ''sklearn'' --user) && \"$0\"
+          \"$@\"", "sh", "-ec", "program_path=$(mktemp)\nprintf \"%s\" \"$0\" > \"$program_path\"\npython3
+          -u \"$program_path\" \"$@\"\n", "def evaluate_model(\n    model_path,\n    df_test_data_path):\n\n    import
+          pandas as pd\n    from joblib import load\n\n    df_test_data = pd.read_csv(df_test_data_path)\n\n    X_test
+          = df_test_data[''management_experience_months''].values\n    y_test = df_test_data[''monthly_salary''].values\n\n    model
+          = load(model_path)\n    print(model.score(X_test.reshape(-1, 1), y_test))\n\nimport
+          argparse\n_parser = argparse.ArgumentParser(prog=''Evaluate model'', description='''')\n_parser.add_argument(\"--model\",
+          dest=\"model_path\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--df-test-data\",
+          dest=\"df_test_data_path\", type=str, required=True, default=argparse.SUPPRESS)\n_parsed_args
+          = vars(_parser.parse_args())\n\n_outputs = evaluate_model(**_parsed_args)\n"],
+          "image": "python:3.7"}}, "inputs": [{"name": "model", "type": "String"},
+          {"name": "df_test_data", "type": "String"}], "name": "Evaluate model"}',
+        pipelines.kubeflow.org/component_ref: '{}'}
+  - name: perform-sample-prediction
+    container:
+      args: [--model, /tmp/inputs/model/data]
+      command:
+      - sh
+      - -c
+      - (PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+        'joblib' 'sklearn' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install
+        --quiet --no-warn-script-location 'joblib' 'sklearn' --user) && "$0" "$@"
+      - sh
+      - -ec
+      - |
+        program_path=$(mktemp)
+        printf "%s" "$0" > "$program_path"
+        python3 -u "$program_path" "$@"
+      - |
+        def perform_sample_prediction(
+            model_path):
+            from joblib import load
+
+            model = load(model_path)
+            print(model.predict([[42]])[0])
+
+        import argparse
+        _parser = argparse.ArgumentParser(prog='Perform sample prediction', description='')
+        _parser.add_argument("--model", dest="model_path", type=str, required=True, default=argparse.SUPPRESS)
+        _parsed_args = vars(_parser.parse_args())
+
+        _outputs = perform_sample_prediction(**_parsed_args)
+      image: python:3.7
+    inputs:
+      artifacts:
+      - {name: train-model-model, path: /tmp/inputs/model/data}
+    metadata:
+      labels: {pipelines.kubeflow.org/kfp_sdk_version: 1.6.3, pipelines.kubeflow.org/pipeline-sdk-type: kfp}
+      annotations: {pipelines.kubeflow.org/component_spec: '{"implementation": {"container":
+          {"args": ["--model", {"inputPath": "model"}], "command": ["sh", "-c", "(PIP_DISABLE_PIP_VERSION_CHECK=1
+          python3 -m pip install --quiet --no-warn-script-location ''joblib'' ''sklearn''
+          || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+          ''joblib'' ''sklearn'' --user) && \"$0\" \"$@\"", "sh", "-ec", "program_path=$(mktemp)\nprintf
+          \"%s\" \"$0\" > \"$program_path\"\npython3 -u \"$program_path\" \"$@\"\n",
+          "def perform_sample_prediction(\n    model_path):\n    from joblib import
+          load\n\n    model = load(model_path)\n    print(model.predict([[42]])[0])\n\nimport
+          argparse\n_parser = argparse.ArgumentParser(prog=''Perform sample prediction'',
+          description='''')\n_parser.add_argument(\"--model\", dest=\"model_path\",
+          type=str, required=True, default=argparse.SUPPRESS)\n_parsed_args = vars(_parser.parse_args())\n\n_outputs
+          = perform_sample_prediction(**_parsed_args)\n"], "image": "python:3.7"}},
+          "inputs": [{"name": "model", "type": "String"}], "name": "Perform sample
+          prediction"}', pipelines.kubeflow.org/component_ref: '{}'}
+  - name: process-data
+    container:
+      args: [--df-all-data, /tmp/inputs/df_all_data/data, --df-training-data, /tmp/outputs/df_training_data/data,
+        --df-test-data, /tmp/outputs/df_test_data/data]
+      command:
+      - sh
+      - -c
+      - (PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+        'pandas' 'sklearn' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install
+        --quiet --no-warn-script-location 'pandas' 'sklearn' --user) && "$0" "$@"
+      - sh
+      - -ec
+      - |
+        program_path=$(mktemp)
+        printf "%s" "$0" > "$program_path"
+        python3 -u "$program_path" "$@"
+      - "def _make_parent_dirs_and_return_path(file_path: str):\n    import os\n \
+        \   os.makedirs(os.path.dirname(file_path), exist_ok=True)\n    return file_path\n\
+        \ndef process_data(\n    df_all_data_path, \n    df_training_data_path, \n\
+        \    df_test_data_path):\n\n    import pandas as pd\n    from sklearn.model_selection\
+        \ import train_test_split\n\n    df_all_data = pd.read_csv(df_all_data_path)\n\
+        \    print(df_all_data)\n\n    X = df_all_data['management_experience_months'].values\
+        \ \n    y = df_all_data['monthly_salary'].values\n    X_train, X_test, y_train,\
+        \ y_test = train_test_split(X, y, test_size=0.3, random_state=0)\n\n    df_training_data\
+        \ = pd.DataFrame({ 'monthly_salary': y_train, 'management_experience_months':\
+        \ X_train})\n    df_training_data.to_csv(df_training_data_path, header=True,\
+        \ index=False)\n    df_test_data = pd.DataFrame({ 'monthly_salary': y_test,\
+        \ 'management_experience_months': X_test})\n    df_test_data.to_csv(df_test_data_path,\
+        \ header=True, index=False)\n\nimport argparse\n_parser = argparse.ArgumentParser(prog='Process\
+        \ data', description='')\n_parser.add_argument(\"--df-all-data\", dest=\"\
+        df_all_data_path\", type=str, required=True, default=argparse.SUPPRESS)\n\
+        _parser.add_argument(\"--df-training-data\", dest=\"df_training_data_path\"\
+        , type=_make_parent_dirs_and_return_path, required=True, default=argparse.SUPPRESS)\n\
+        _parser.add_argument(\"--df-test-data\", dest=\"df_test_data_path\", type=_make_parent_dirs_and_return_path,\
+        \ required=True, default=argparse.SUPPRESS)\n_parsed_args = vars(_parser.parse_args())\n\
+        \n_outputs = process_data(**_parsed_args)\n"
+      image: python:3.7
+    inputs:
+      artifacts:
+      - {name: download-dataset-df_all_data, path: /tmp/inputs/df_all_data/data}
+    outputs:
+      artifacts:
+      - {name: process-data-df_test_data, path: /tmp/outputs/df_test_data/data}
+      - {name: process-data-df_training_data, path: /tmp/outputs/df_training_data/data}
+    metadata:
+      labels: {pipelines.kubeflow.org/kfp_sdk_version: 1.6.3, pipelines.kubeflow.org/pipeline-sdk-type: kfp}
+      annotations: {pipelines.kubeflow.org/component_spec: '{"implementation": {"container":
+          {"args": ["--df-all-data", {"inputPath": "df_all_data"}, "--df-training-data",
+          {"outputPath": "df_training_data"}, "--df-test-data", {"outputPath": "df_test_data"}],
+          "command": ["sh", "-c", "(PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip
+          install --quiet --no-warn-script-location ''pandas'' ''sklearn'' || PIP_DISABLE_PIP_VERSION_CHECK=1
+          python3 -m pip install --quiet --no-warn-script-location ''pandas'' ''sklearn''
+          --user) && \"$0\" \"$@\"", "sh", "-ec", "program_path=$(mktemp)\nprintf
+          \"%s\" \"$0\" > \"$program_path\"\npython3 -u \"$program_path\" \"$@\"\n",
+          "def _make_parent_dirs_and_return_path(file_path: str):\n    import os\n    os.makedirs(os.path.dirname(file_path),
+          exist_ok=True)\n    return file_path\n\ndef process_data(\n    df_all_data_path,
+          \n    df_training_data_path, \n    df_test_data_path):\n\n    import pandas
+          as pd\n    from sklearn.model_selection import train_test_split\n\n    df_all_data
+          = pd.read_csv(df_all_data_path)\n    print(df_all_data)\n\n    X = df_all_data[''management_experience_months''].values
+          \n    y = df_all_data[''monthly_salary''].values\n    X_train, X_test, y_train,
+          y_test = train_test_split(X, y, test_size=0.3, random_state=0)\n\n    df_training_data
+          = pd.DataFrame({ ''monthly_salary'': y_train, ''management_experience_months'':
+          X_train})\n    df_training_data.to_csv(df_training_data_path, header=True,
+          index=False)\n    df_test_data = pd.DataFrame({ ''monthly_salary'': y_test,
+          ''management_experience_months'': X_test})\n    df_test_data.to_csv(df_test_data_path,
+          header=True, index=False)\n\nimport argparse\n_parser = argparse.ArgumentParser(prog=''Process
+          data'', description='''')\n_parser.add_argument(\"--df-all-data\", dest=\"df_all_data_path\",
+          type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--df-training-data\",
+          dest=\"df_training_data_path\", type=_make_parent_dirs_and_return_path,
+          required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--df-test-data\",
+          dest=\"df_test_data_path\", type=_make_parent_dirs_and_return_path, required=True,
+          default=argparse.SUPPRESS)\n_parsed_args = vars(_parser.parse_args())\n\n_outputs
+          = process_data(**_parsed_args)\n"], "image": "python:3.7"}}, "inputs": [{"name":
+          "df_all_data", "type": "String"}], "name": "Process data", "outputs": [{"name":
+          "df_training_data", "type": "String"}, {"name": "df_test_data", "type":
+          "String"}]}', pipelines.kubeflow.org/component_ref: '{}'}
+  - name: train-model
+    container:
+      args: [--df-training-data, /tmp/inputs/df_training_data/data, --model, /tmp/outputs/model/data]
+      command:
+      - sh
+      - -c
+      - (PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+        'pandas' 'sklearn' 'joblib' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m
+        pip install --quiet --no-warn-script-location 'pandas' 'sklearn' 'joblib'
+        --user) && "$0" "$@"
+      - sh
+      - -ec
+      - |
+        program_path=$(mktemp)
+        printf "%s" "$0" > "$program_path"
+        python3 -u "$program_path" "$@"
+      - |
+        def _make_parent_dirs_and_return_path(file_path: str):
+            import os
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            return file_path
+
+        def train_model(
+            df_training_data_path,
+            model_path):
+
+            import pandas as pd
+            from sklearn.linear_model import LinearRegression
+            from joblib import dump
+
+            df_training_data = pd.read_csv(df_training_data_path)
+            print(df_training_data)
+
+            X_train = df_training_data['management_experience_months'].values
+            y_train = df_training_data['monthly_salary'].values
+
+            model = LinearRegression().fit(X_train.reshape(-1, 1), y_train)
+            print(model)
+            dump(model, model_path)
+
+        import argparse
+        _parser = argparse.ArgumentParser(prog='Train model', description='')
+        _parser.add_argument("--df-training-data", dest="df_training_data_path", type=str, required=True, default=argparse.SUPPRESS)
+        _parser.add_argument("--model", dest="model_path", type=_make_parent_dirs_and_return_path, required=True, default=argparse.SUPPRESS)
+        _parsed_args = vars(_parser.parse_args())
+
+        _outputs = train_model(**_parsed_args)
+      image: python:3.7
+    inputs:
+      artifacts:
+      - {name: process-data-df_training_data, path: /tmp/inputs/df_training_data/data}
+    outputs:
+      artifacts:
+      - {name: train-model-model, path: /tmp/outputs/model/data}
+    metadata:
+      labels: {pipelines.kubeflow.org/kfp_sdk_version: 1.6.3, pipelines.kubeflow.org/pipeline-sdk-type: kfp}
+      annotations: {pipelines.kubeflow.org/component_spec: '{"implementation": {"container":
+          {"args": ["--df-training-data", {"inputPath": "df_training_data"}, "--model",
+          {"outputPath": "model"}], "command": ["sh", "-c", "(PIP_DISABLE_PIP_VERSION_CHECK=1
+          python3 -m pip install --quiet --no-warn-script-location ''pandas'' ''sklearn''
+          ''joblib'' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet
+          --no-warn-script-location ''pandas'' ''sklearn'' ''joblib'' --user) && \"$0\"
+          \"$@\"", "sh", "-ec", "program_path=$(mktemp)\nprintf \"%s\" \"$0\" > \"$program_path\"\npython3
+          -u \"$program_path\" \"$@\"\n", "def _make_parent_dirs_and_return_path(file_path:
+          str):\n    import os\n    os.makedirs(os.path.dirname(file_path), exist_ok=True)\n    return
+          file_path\n\ndef train_model(\n    df_training_data_path,\n    model_path):\n\n    import
+          pandas as pd\n    from sklearn.linear_model import LinearRegression\n    from
+          joblib import dump\n\n    df_training_data = pd.read_csv(df_training_data_path)\n    print(df_training_data)\n\n    X_train
+          = df_training_data[''management_experience_months''].values\n    y_train
+          = df_training_data[''monthly_salary''].values\n\n    model = LinearRegression().fit(X_train.reshape(-1,
+          1), y_train)\n    print(model)\n    dump(model, model_path)\n\nimport argparse\n_parser
+          = argparse.ArgumentParser(prog=''Train model'', description='''')\n_parser.add_argument(\"--df-training-data\",
+          dest=\"df_training_data_path\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--model\",
+          dest=\"model_path\", type=_make_parent_dirs_and_return_path, required=True,
+          default=argparse.SUPPRESS)\n_parsed_args = vars(_parser.parse_args())\n\n_outputs
+          = train_model(**_parsed_args)\n"], "image": "python:3.7"}}, "inputs": [{"name":
+          "df_training_data", "type": "String"}], "name": "Train model", "outputs":
+          [{"name": "model", "type": "String"}]}', pipelines.kubeflow.org/component_ref: '{}'}
+  arguments:
+    parameters: []
+  serviceAccountName: pipeline-runner
