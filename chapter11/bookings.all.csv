@@ -1,3 +1,4 @@
+is_cancelled,lead_time,stays_in_weekend_nights,stays_in_week_nights,adults,children,babies,is_repeated_guest,previous_cancellations,previous_bookings_not_cancelled,reserved_room_type,assigned_room_type,booking_changes,deposit_type,days_in_waiting_list,customer_type,adr,required_car_parking_spaces,total_of_special_requests,has_booking_changes,has_special_requests,has_previous_cancellations
 1,89,6,3,2,0.0,0,0,0,0,A,A,0,No Deposit,0,Transient,98.77046415673736,1,2,False,True,False
 1,135,8,2,4,0.0,0,0,0,0,A,D,0,No Deposit,0,Transient,135.1662396084898,0,0,False,False,False
 1,59,2,3,1,0.0,0,0,0,0,D,A,1,No Deposit,0,Transient,121.93304346385678,1,0,True,False,False
