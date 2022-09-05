@@ -9,7 +9,12 @@ This chapter introduces the AWS Deep Learning Containers and how these are used 
 
 ### I. Links
 
-
+| Shortened              | Original                                                                                                                    |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| https://bit.ly/3h1KBx2 | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter02/data/training_data.csv |
+| https://bit.ly/3KcsG3v | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter03/train.py               |
+| https://bit.ly/3Iz7zaV | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter03/train.sh               |
+| https://bit.ly/3pt5mGN | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter03/dlclambda.zip          |
 
 ### II. Commands
 
@@ -52,8 +57,7 @@ chmod +x train.sh
 tree
 ```
 
-#### ➤ Serverless ML deployment with Lambda’s container image
-support
+#### ➤ Serverless ML deployment with Lambda’s container image support
 
 ##### Building the custom container image
 
