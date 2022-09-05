@@ -60,6 +60,10 @@ tensorboard --logdir=logs --bind_all
 jupyter notebook --allow-root --port 8888 --ip 0.0.0.0
 ```
 
+| Filename                      | Source Code                                                                                                                    |
+|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Load and Evaluate Model.ipynb | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter02/Load%20and%20Evaluate%20Model.ipynb |
+
 ```
 import tensorflow as tf 
 tf.config.list_physical_devices('GPU')
