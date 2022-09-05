@@ -1,20 +1,14 @@
+## Machine Learning Engineering on AWS
 
-```
-mkdir -p ~/.aws-lambda-rie && curl -Lo ~/.aws-lambda-rie/aws-lambda-rie \
-https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie \
-&& chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+<a href="https://www.packtpub.com/product/machine-learning-engineering-on-aws/9781803247595"><img src="https://static.packt-cdn.com/products/9781803247595/cover/smaller" alt="Book Name" height="100px" align="left"></a>
 
-sudo ./download-rie.sh
+**Chapter 3: Deep Learning Containers** <br />
+This chapter introduces the AWS Deep Learning Containers and how these are used to help machine learning practitioners perform ML experiments faster using containers. Here, we will also deploy a trained deep learning model inside an AWS Lambda Function using Lambda's container image support.
 
-cat run.sh
+<br />
 
-docker run -v ~/.aws-lambda-rie:/aws-lambda -p 9000:8080 --entrypoint /aws-lambda/aws-lambda-rie dlclambda:latest /opt/conda/bin/python -m awslambdaric app.handler
+### I. Links
 
-./run.sh
 
-cd ch03
- 
-cat invoke.sh
 
-curl -XPOST "http://localhost:9000/2015-03-31/ functions/function/invocations" -d '{"queryStringParameters":{"x":42}}'
-```
+### II. Commands
