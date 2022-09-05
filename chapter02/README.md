@@ -68,8 +68,10 @@ jupyter notebook --allow-root --port 8888 --ip 0.0.0.0
 import tensorflow as tf 
 tf.config.list_physical_devices('GPU')
 
+
 model = tf.keras.models.load_model('model')
 model.summary()
+
 
 import numpy as np
 def load_data(training_data_location):
@@ -80,9 +82,11 @@ def load_data(training_data_location):
     
     return (x, y)
     
+    
 x, y = load_data("data/test_data.csv")
 predictions = model.predict(x[0:5])
 predictions
+
 
 results = model.evaluate(x, y, batch_size=128)
 results
