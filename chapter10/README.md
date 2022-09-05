@@ -14,4 +14,11 @@ This chapter focuses on using Kubeflow Pipelines, Kubernetes, and Amazon Elastic
 | https://bit.ly/3ByyDGV | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter10/ch10_prerequisites.zip                                     |
 | https://bit.ly/3POP8CI | https://gist.githubusercontent.com/joshualat/8e64cb4b4de5f46fab010de97460a9be/raw/60fd1dc73ebfff717dac91f8a2bdc50310eacb22/management_experience_and_salary.csv |
 
-### II. Commands
+### II. Notebooks, Scripts, and Files
+
+| Label                                | Link                                                                                                                            |
+|--------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| Simple Kubeflow Pipeline.ipynb       | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter10/Simple%20Kubeflow%20Pipeline.ipynb   |
+| basic_pipeline.yaml                  | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter10/basic_pipeline.yaml                  |
+| ch10_prerequisites.zip               | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter10/ch10_prerequisites.zip               |
+| management_experience_and_salary.csv | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter10/management_experience_and_salary.csv |
