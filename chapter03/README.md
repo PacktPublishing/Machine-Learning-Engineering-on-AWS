@@ -37,8 +37,7 @@ wget https://bit.ly/3h1KBx2 -O data/training_data.csv
 head data/training_data.csv
 ```
 
-#### ➤ Using AWS Deep Learning Containers to train an ML
-model
+#### ➤ Using AWS Deep Learning Containers to train an ML model
 
 ```
 wget https://bit.ly/3KcsG3v -O train.py
