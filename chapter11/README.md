@@ -22,3 +22,11 @@ This chapter focuses on using SageMaker Pipelines to design and build automated 
 | processing.py                   | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/processing.py                         |
 | utils.py                        | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/utils.py                              |
 | Test Endpoint then Delete.ipynb | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/Test%20Endpoint%20then%20Delete.ipynb |
+
+### III. Lambda Function code
+
+| Lambda Function                   | Code                                                                                                                            |
+|-----------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| check-if-endpoint-exists          | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/check-if-endpoint-exists.py          |
+| deploy-model-to-new-endpoint      | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/deploy-model-to-new-endpoint.py      |
+| deploy-model-to-existing-endpoint | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/deploy-model-to-existing-endpoint.py |
