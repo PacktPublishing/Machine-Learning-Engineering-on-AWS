@@ -65,9 +65,12 @@ aws s3 cp $FILE s3://$BUCKET_NAME/input/$FILE
 ```
 SELECT COUNT(*) FROM dev.public.bookings WHERE is_cancelled = 0;
 
+
 SELECT * FROM dev.public.bookings WHERE is_cancelled = 1 AND previous_cancellations > 0;
 
+
 SELECT * FROM dev.public.bookings WHERE is_cancelled = 1 AND days_in_waiting_list > 50;
+
 
 SELECT booking_changes, has_booking_changes, *
 FROM dev.public.bookings
@@ -76,6 +79,7 @@ WHERE
 OR
 (booking_changes>0 AND has_booking_changes='False');
 
+
 SELECT total_of_special_requests,
 has_special_requests, *
 FROM dev.public.bookings
@@ -83,6 +87,7 @@ WHERE
 (total_of_special_requests=0 AND has_special_requests='True')
 OR
 (total_of_special_requests>0 AND has_special_requests='False');
+
 
 CREATE MATERIALIZED VIEW data_integrity_issues AS
 SELECT *
@@ -130,17 +135,21 @@ head *
 ```
 SELECT * FROM "AwsDataCatalog"."mle-ch4-db"."unloaded" limit 10;
 
+
 SELECT COUNT(*) FROM "AwsDataCatalog"."mle-ch4-db"."unloaded" WHERE is_cancelled=0;
+
 
 SELECT * 
 FROM "AwsDataCatalog"."mle-ch4-db"."unloaded" 
 WHERE is_cancelled=1 AND previous_cancellations > 0 
 LIMIT 100;
 
+
 SELECT * 
 FROM "AwsDataCatalog"."mle-ch4-db"."unloaded" 
 WHERE is_cancelled=1 AND days_in_waiting_list > 50 
 LIMIT 100;
+
 
 SELECT booking_changes, has_booking_changes, * 
 FROM "AwsDataCatalog"."mle-ch4-db"."unloaded" 
@@ -150,6 +159,7 @@ OR
 (booking_changes>0 AND has_booking_changes=false)
 LIMIT 100;
 
+
 SELECT total_of_special_requests, has_special_requests, *  
 FROM "AwsDataCatalog"."mle-ch4-db"."unloaded" 
 WHERE 
@@ -157,6 +167,7 @@ WHERE
 OR 
 (total_of_special_requests>0 AND has_special_requests=false)
 LIMIT 100;
+
 
 CREATE OR REPLACE VIEW data_integrity_issues AS
 SELECT * 
@@ -169,6 +180,7 @@ OR
 (total_of_special_requests=0 AND has_special_requests=true) 
 OR 
 (total_of_special_requests>0 AND has_special_requests=false);
+
 
 SELECT booking_changes, has_booking_changes, 
 total_of_special_requests, has_special_requests 
