@@ -9,4 +9,9 @@ This chapter focuses on using SageMaker Pipelines to design and build automated 
 
 ### I. Links
 
+| Shortened              | Original                                                                                                                                 |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| https://bit.ly/3QiGDQO | https://gist.githubusercontent.com/joshualat/7e7446e349c5c74166d237f57d5cb6c8/raw/8b6ae660ffcbd0c8ccaad840463da514a02c39e5/processing.py |
+| https://bit.ly/3BUcMK4 | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter11/bookings.all.csv                    |
+
 ### II. Commands
