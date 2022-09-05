@@ -48,7 +48,6 @@ managedNodeGroups:
     enableSsm: true
 ```
 
-**Following is what you need for this book:**
 This book is for machine learning engineers, data scientists, and AWS cloud engineers interested in working on production data engineering, machine learning engineering, and MLOps requirements using a variety of AWS Services such as Amazon EC2, Amazon Elastic Kubernetes Service (EKS), Amazon SageMaker, AWS Glue, Amazon Redshift, AWS LakeFormation, and AWS Lambda. All you need is an AWS account to get things running. Prior knowledge of AWS, machine learning, and Python programming language will help you to grasp the concepts covered in this book more effectively.
 
 With the following software and hardware list you can run all code files present in the book (Chapter 1-11).
