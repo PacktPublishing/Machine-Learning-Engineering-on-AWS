@@ -9,4 +9,14 @@ This chapter presents the different solutions and capabilities available when tr
 
 ### I. Links
 
-### II. Commands
+| Shortened              | Original                                                                                                        |
+|------------------------|-----------------------------------------------------------------------------------------------------------------|
+| https://bit.ly/37zmQeb | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter06/batch1.zip |
+| https://bit.ly/3KyonQE | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter06/batch2.zip |
+
+### II. Notebooks
+
+| Label        | Link                                                                                                    |
+|--------------|---------------------------------------------------------------------------------------------------------|
+| PART01.ipynb | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter06/PART01.ipynb |
+| PART02.ipynb | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter06/PART02.ipynb |
