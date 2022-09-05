@@ -1,7 +1,12 @@
-## Introduction to ML Engineering on AWS
+## Machine Learning Engineering on AWS
 
-*Chapter 1*, *Introduction to ML Engineering on AWS*, focuses on helping the reader set up, understand the key concepts, and get their feet wet quickly with several
+<a href="https://www.packtpub.com/product/machine-learning-engineering-on-aws/9781803247595"><img src="https://static.packt-cdn.com/products/9781803247595/cover/smaller" alt="Book Name" height="100px" align="left"></a>
+
+**Chapter 1, Introduction to ML Engineering on AWS** <br />
+This chapter focuses on helping the reader set up, understand the key concepts, and get their feet wet quickly with several
 simplified AutoML examples.
+
+<br />
 
 ### I. Links
 
