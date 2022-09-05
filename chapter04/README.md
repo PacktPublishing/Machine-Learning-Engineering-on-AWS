@@ -9,6 +9,10 @@ This chapter presents several severless solutions available such as Amazon Redsh
 
 ### I. Links
 
+| Shortened              | Original                                                                                                                           |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| https://bit.ly/3L6FsRg | https://raw.githubusercontent.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/main/chapter04/synthetic.bookings.100000.csv |
+
 ### II. Commands
 
 #### ➤ Preparing the Essential Prerequisites
