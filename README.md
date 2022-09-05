@@ -4,10 +4,6 @@
 
 This is the code repository for [Machine Learning Engineering on AWS](https://www.packtpub.com/product/machine-learning-engineering-on-aws/9781803247595), published by Packt.
 
-<br />
-<br />
-<br />
-
 **Building, Scaling, and Securing Machine Learning Systems and MLOps Pipelines in Production**
 
 ## What is this book about?
