@@ -7,10 +7,10 @@ This is the code repository for [Machine Learning Engineering on AWS](https://ww
 **Building, Scaling, and Securing Machine Learning Systems and MLOps Pipelines in Production**
 
 ## What is this book about?
-There is a growing need for professionals who have experience working on <br />
-machine learning engineering requirements as well as knowledge automating <br />
-complex MLOps pipelines in the cloud. In this book, we will explore a variety of <br /> 
-AWS services that ML practitioners can use to solve various ML engineering <br /> 
+There is a growing need for professionals who have experience working on 
+machine learning engineering requirements as well as knowledge automating 
+complex MLOps pipelines in the cloud. In this book, we will explore a variety of 
+AWS services that ML practitioners can use to solve various ML engineering 
 requirements and challenges in production.
 
 This book covers the following exciting features: 
