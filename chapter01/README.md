@@ -2,7 +2,7 @@
 
 <a href="https://www.packtpub.com/product/machine-learning-engineering-on-aws/9781803247595"><img src="https://static.packt-cdn.com/products/9781803247595/cover/smaller" alt="Book Name" height="100px" align="left"></a>
 
-**Chapter 1, Introduction to ML Engineering on AWS** <br />
+**Chapter 1: Introduction to ML Engineering on AWS** <br />
 This chapter focuses on helping the reader set up, understand the key concepts, and get their feet wet quickly with several
 simplified AutoML examples.
 
@@ -18,7 +18,7 @@ simplified AutoML examples.
 
 ### II. Commands
 
-#### Essential prerequisites
+#### ➤ Essential prerequisites
 
 ##### Increasing Cloud9's storage
 
@@ -94,7 +94,7 @@ aws s3 cp tmp/bookings.train.csv $S3/$TRAIN
 aws s3 cp tmp/bookings.test.csv $S3/$TEST
 ```
 
-#### AutoML with AutoGluon
+#### ➤ AutoML with AutoGluon
 
 ##### Setting up and installing AutoGluon
 
