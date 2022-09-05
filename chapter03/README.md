@@ -104,7 +104,7 @@ docker tag dlclambda:latest <ACCOUNT ID>.dkr.ecr.us-west-2.amazonaws.com/dlclamb
 
 docker images
 
-docker push <ACCOUNT ID>.dkr.ecr.us-west-2.amazonaws.com/ dlclambda:1
+docker push <ACCOUNT ID>.dkr.ecr.us-west-2.amazonaws.com/dlclambda:1
 ```
 
 ##### Running ML predictions on AWS Lambda
