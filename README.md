@@ -13,7 +13,7 @@ complex MLOps pipelines in the cloud. In this book, we will explore a variety of
 AWS services that ML practitioners can use to solve various ML engineering 
 requirements and challenges in production.
 
-This book covers the following exciting features: 
+This book covers the following exciting topics: 
 * Learn how to train and deploy TensorFlow and PyTorch models on AWS
 * Use containers and serverless services for ML engineering requirements
 * Learn how to set up a serverless data warehouse and data lake on AWS
