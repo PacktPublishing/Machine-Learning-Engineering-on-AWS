@@ -101,6 +101,7 @@ OR
 OR
 (total_of_special_requests>0 AND has_special_requests='False');
 
+
 SELECT booking_changes, has_booking_changes,
 total_of_special_requests, has_special_requests FROM
 data_integrity_issues;
