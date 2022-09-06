@@ -24,6 +24,7 @@ This chapter introduces the AWS Deep Learning Containers and how these are used 
 
 ```
 mkdir -p ch03 
+
 cd ch03
 ```
 
@@ -32,7 +33,9 @@ cd ch03
 ```
 mkdir -p data
 
+
 wget https://bit.ly/3h1KBx2 -O data/training_data.csv
+
 
 head data/training_data.csv
 ```
@@ -42,16 +45,23 @@ head data/training_data.csv
 ```
 wget https://bit.ly/3KcsG3v -O train.py
 
+
 mkdir -p model
+
 
 sudo apt install tree
 
+
 tree
+
 
 wget https://bit.ly/3Iz7zaV -O train.sh
 
+
 chmod +x train.sh 
+
 ./train.sh
+
 
 tree
 ```
@@ -62,19 +72,27 @@ tree
 
 ```
 wget https://bit.ly/3pt5mGN -O dlclambda.zip 
+
 unzip dlclambda.zip
+
 
 tree
 
+
 cp model/model.pth app/model/model.pth
+
 
 chmod +x *.sh
 
+
 cat build.sh
+
 
 docker build -t dlclambda .
 
+
 ./build.sh
+
 
 docker images | grep dlclambda
 ```
@@ -84,14 +102,20 @@ docker images | grep dlclambda
 ```
 cat download-rie.sh
 
+
 sudo ./download-rie.sh
+
 
 cat run.sh
 
+
 ./run.sh
 
+
 cd ch03
+
 cat invoke.sh
+
 
 ./invoke.sh
 ```
@@ -101,7 +125,9 @@ cat invoke.sh
 ```
 docker tag dlclambda:latest <ACCOUNT ID>.dkr.ecr.us-west-2.amazonaws.com/dlclambda:1
 
+
 docker images
+
 
 docker push <ACCOUNT ID>.dkr.ecr.us-west-2.amazonaws.com/dlclambda:1
 ```
