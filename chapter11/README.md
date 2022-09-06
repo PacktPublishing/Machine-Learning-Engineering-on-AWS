@@ -18,9 +18,9 @@ This chapter focuses on using SageMaker Pipelines to design and build automated 
 
 | Label                           | Link                                                                                                                             |
 |---------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Machine Learning Pipelines with SageMaker Pipelines.ipynb      | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/Machine%20Learning%20Pipelines%20with%20SageMaker%20Pipelines.ipynb                                                                          |
 | bookings.all.csv                | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/bookings.all.csv                      |
 | processing.py                   | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/processing.py                         |
-| utils.py                        | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/utils.py                              |
 | Test Endpoint then Delete.ipynb | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/Test%20Endpoint%20then%20Delete.ipynb |
 
 ### III. Lambda Function code
@@ -30,3 +30,4 @@ This chapter focuses on using SageMaker Pipelines to design and build automated 
 | check-if-endpoint-exists          | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/check-if-endpoint-exists.py          |
 | deploy-model-to-new-endpoint      | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/deploy-model-to-new-endpoint.py      |
 | deploy-model-to-existing-endpoint | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/deploy-model-to-existing-endpoint.py |
+| utils.py                          | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter11/utils.py                             |
