@@ -22,3 +22,140 @@ This chapter focuses on using Kubeflow Pipelines, Kubernetes, and Amazon Elastic
 | basic_pipeline.yaml                  | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter10/basic_pipeline.yaml                  |
 | ch10_prerequisites.zip               | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter10/ch10_prerequisites.zip               |
 | management_experience_and_salary.csv | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter10/management_experience_and_salary.csv |
+
+### III. Commands
+
+#### ➤ Preparing the Essential Prerequisites
+
+##### Attaching the IAM role to EC2 instance of the Cloud9 environment
+
+```
+aws cloud9 update-environment --environment-id $C9_PID --managed-credentials-action DISABLE
+
+rm -vf ${HOME}/.aws/credentials
+
+aws sts get-caller-identity --query Arn
+```
+
+##### Updating the Cloud9 environment with the essential prerequisites
+
+```
+wget -O prerequisites.zip https://bit.ly/3ByyDGV
+unzip prerequisites.zip
+
+cd ch10_prerequisites
+chmod +x *.sh
+
+sudo ./00_install_kubectl_aws_jq_and_more.sh
+
+aws --version
+
+kustomize version
+
+eksctl version
+
+. ~/.bash_completion
+. ~/.bash_profile
+. ~/.bashrc
+
+export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
+export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
+export AZS=($(aws ec2 describe-availability-zones --query 'AvailabilityZones[].ZoneName' --output text --region $AWS_REGION))
+echo "export ACCOUNT_ID=${ACCOUNT_ID}" | tee -a ~/.bash_profile
+echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
+echo "export AZS=(${AZS[@]})" | tee -a ~/.bash_profile
+aws configure set default.region ${AWS_REGION}
+
+aws configure get default.region
+```
+
+#### ➤ Setting up Kubeflow on Amazon EKS
+
+```
+cd ~/environment
+mkdir ch10
+cd ch10
+
+touch eks.yaml
+```
+
+eks.yaml
+```
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: kubeflow-eks-000
+  region: us-west-2
+  version: "1.21"
+
+availabilityZones: ["us-west-2a", "us-west-2b", "us-west-2c", "us-west-2d"]
+
+managedNodeGroups:
+- name: nodegroup
+  desiredCapacity: 5
+  instanceType: m5.xlarge
+  ssh:
+    enableSsm: true
+```
+
+```
+eksctl create cluster -f eks.yaml --dry-run
+
+eksctl create cluster -f eks.yaml
+
+kubectl get nodes -o wide
+
+CLUSTER_NAME=kubeflow-eks-000
+CLUSTER_REGION=us-west-2
+
+eksctl utils associate-iam-oidc-provider --cluster $CLUSTER_NAME --approve -v4
+
+aws eks update-kubeconfig --name $CLUSTER_NAME --region ${AWS_REGION}
+STACK_NAME=$(eksctl get nodegroup --cluster $CLUSTER_NAME -o json | jq -r '.[].StackName')
+ROLE_NAME=$(aws cloudformation describe-stack-resources --stack-name $STACK_NAME | jq -r '.StackResources[] | select(.ResourceType=="AWS::IAM::Role") | .PhysicalResourceId')
+echo "export ROLE_NAME=${ROLE_NAME}" | tee -a ~/.bash_profile
+
+export KUBEFLOW_RELEASE_VERSION=v1.5.1
+export AWS_RELEASE_VERSION=v1.5.1-aws-b1.0.0
+
+git clone https://github.com/awslabs/kubeflow-manifests.git && cd kubeflow-manifests
+git checkout ${AWS_RELEASE_VERSION}
+git clone --branch ${KUBEFLOW_RELEASE_VERSION} https://github.com/kubeflow/manifests.git upstream
+
+cd deployments/vanilla
+
+while ! kustomize build . | kubectl apply -f -; do echo "Retrying"; sleep 30; done
+
+ns_array=(kubeflow kubeflow-user-example-com kserve cert-manager istio-system auth knative-eventing knative-serving)
+
+for i in ${ns_array[@]}; do 
+  echo "[+] kubectl get pods -n $i"
+  kubectl get pods -n $i; 
+  echo "---"
+done
+
+kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 --address=localhost
+```
+
+#### ➤ Using the Kubeflow Pipelines SDK to build ML workflows
+
+| Label                          | Source Code                                                                                                                   |
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Simple Kubeflow Pipeline.ipynb | https://github.com/PacktPublishing/Machine-Learning-Engineering-on-AWS/blob/main/chapter10/Simple%20Kubeflow%20Pipeline.ipynb |
+
+
+#### ➤ Cleaning Up
+
+```
+kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 –address=localhost
+
+kubectl delete profile –all
+
+cd ~/environment/ch10/kubeflow-manifests/
+cd deployments/vanilla/
+kustomize build . | kubectl delete -f -
+
+eksctl delete cluster -region $CLUSTER_REGION –name $CLUSTER_NAME
+```
