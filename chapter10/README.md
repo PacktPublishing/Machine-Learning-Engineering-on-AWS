@@ -30,9 +30,10 @@ This chapter focuses on using Kubeflow Pipelines, Kubernetes, and Amazon Elastic
 ##### Attaching the IAM role to EC2 instance of the Cloud9 environment
 
 ```
-aws cloud9 update-environment --environment-id $C9_PID --managed-credentials-action DISABLE
+ENV_ID=$C9_PID
+aws cloud9 update-environment --managed-credentials-action DISABLE --environment-id $ENV_ID
 
-rm -vf ${HOME}/.aws/credentials
+rm -vf /home/ubuntu/.aws/credentials
 
 aws sts get-caller-identity --query Arn
 ```
@@ -58,12 +59,8 @@ eksctl version
 . ~/.bash_profile
 . ~/.bashrc
 
-export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
-export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
-export AZS=($(aws ec2 describe-availability-zones --query 'AvailabilityZones[].ZoneName' --output text --region $AWS_REGION))
-echo "export ACCOUNT_ID=${ACCOUNT_ID}" | tee -a ~/.bash_profile
+export AWS_REGION="us-west-2"
 echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
-echo "export AZS=(${AZS[@]})" | tee -a ~/.bash_profile
 aws configure set default.region ${AWS_REGION}
 
 aws configure get default.region
@@ -113,16 +110,14 @@ CLUSTER_REGION=us-west-2
 eksctl utils associate-iam-oidc-provider --cluster $CLUSTER_NAME --approve -v4
 
 aws eks update-kubeconfig --name $CLUSTER_NAME --region ${AWS_REGION}
-STACK_NAME=$(eksctl get nodegroup --cluster $CLUSTER_NAME -o json | jq -r '.[].StackName')
-ROLE_NAME=$(aws cloudformation describe-stack-resources --stack-name $STACK_NAME | jq -r '.StackResources[] | select(.ResourceType=="AWS::IAM::Role") | .PhysicalResourceId')
-echo "export ROLE_NAME=${ROLE_NAME}" | tee -a ~/.bash_profile
 
-export KUBEFLOW_RELEASE_VERSION=v1.5.1
-export AWS_RELEASE_VERSION=v1.5.1-aws-b1.0.0
+export KUBEFLOW_VERSION=v1.5.1
+export AWS_VERSION=v1.5.1-aws-b1.0.0
 
 git clone https://github.com/awslabs/kubeflow-manifests.git && cd kubeflow-manifests
-git checkout ${AWS_RELEASE_VERSION}
-git clone --branch ${KUBEFLOW_RELEASE_VERSION} https://github.com/kubeflow/manifests.git upstream
+git checkout ${AWS_VERSION}
+git clone --branch ${KUBEFLOW_VERSION} https://github.com/kubeflow/manifests.git upstream
+
 
 cd deployments/vanilla
 
