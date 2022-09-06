@@ -165,10 +165,7 @@ kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 --address=
 #### ➤ Cleaning Up
 
 ```
-kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 –address=localhost
-
-
-kubectl delete profile –all
+kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 –-address=localhost
 
 
 cd ~/environment/ch10/kubeflow-manifests/
@@ -176,5 +173,5 @@ cd deployments/vanilla/
 kustomize build . | kubectl delete -f -
 
 
-eksctl delete cluster -region $CLUSTER_REGION –name $CLUSTER_NAME
+eksctl delete cluster --region $CLUSTER_REGION --name $CLUSTER_NAME
 ```
