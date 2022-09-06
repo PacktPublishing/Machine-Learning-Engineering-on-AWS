@@ -132,7 +132,6 @@ aws eks update-kubeconfig --name $CLUSTER_NAME --region ${AWS_REGION}
 
 export KUBEFLOW_VERSION=v1.5.1
 export AWS_VERSION=v1.5.1-aws-b1.0.0
-
 git clone https://github.com/awslabs/kubeflow-manifests.git && cd kubeflow-manifests
 git checkout ${AWS_VERSION}
 git clone --branch ${KUBEFLOW_VERSION} https://github.com/kubeflow/manifests.git upstream
