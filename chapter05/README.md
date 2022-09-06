@@ -23,6 +23,7 @@ This chapter focuses on the different services available such as AWS Glue DataBr
 TARGET=<PASTE COPIED S3 URL>
 aws s3 cp $TARGET bookings.csv
 
+
 head bookings.csv
 ```
 
@@ -41,10 +42,13 @@ df = df.withColumn('has_booking_changes', expression)
 ```
 mv * /tmp 2>/dev/null
 
+
 S3_PATH=<PASTE S3 URL>
 aws s3 cp $S3_PATH/ . --recursive
 
+
 ls -R
+
 
 head */default/*.csv
 ```
