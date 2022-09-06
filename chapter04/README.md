@@ -49,10 +49,13 @@ This chapter presents several severless solutions available such as Amazon Redsh
 ```
 wget https://bit.ly/3L6FsRg -O synthetic.bookings.100000.csv
 
+
 head synthetic.bookings.100000.csv
+
 
 BUCKET_NAME=<INSERT BUCKET NAME>
 aws s3 mb s3://$BUCKET_NAME
+
 
 FILE=synthetic.bookings.100000.csv
 aws s3 cp $FILE s3://$BUCKET_NAME/input/$FILE
