@@ -120,14 +120,19 @@ FORMAT AS CSV DELIMITER ','
 PARALLEL ON
 HEADER;
 
+
 BUCKET_NAME=<INSERT BUCKET NAME>
 aws s3 ls s3://$BUCKET_NAME/unloaded/
 
+
 mv * /tmp
+
 
 aws s3 cp s3://$BUCKET_NAME/unloaded/ . --recursive
 
+
 ls
+
 
 head *
 ```
