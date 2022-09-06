@@ -33,7 +33,9 @@ This chapter focuses on using Kubeflow Pipelines, Kubernetes, and Amazon Elastic
 ENV_ID=$C9_PID
 aws cloud9 update-environment --managed-credentials-action DISABLE --environment-id $ENV_ID
 
+
 rm -vf /home/ubuntu/.aws/credentials
+
 
 aws sts get-caller-identity --query Arn
 ```
@@ -44,24 +46,32 @@ aws sts get-caller-identity --query Arn
 wget -O prerequisites.zip https://bit.ly/3ByyDGV
 unzip prerequisites.zip
 
+
 cd ch10_prerequisites
 chmod +x *.sh
 
+
 sudo ./00_install_kubectl_aws_jq_and_more.sh
+
 
 aws --version
 
+
 kustomize version
 
+
 eksctl version
+
 
 . ~/.bash_completion
 . ~/.bash_profile
 . ~/.bashrc
 
+
 export AWS_REGION="us-west-2"
 echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
 aws configure set default.region ${AWS_REGION}
+
 
 aws configure get default.region
 ```
@@ -70,13 +80,16 @@ aws configure get default.region
 
 ```
 cd ~/environment
+
 mkdir ch10
+
 cd ch10
+
 
 touch eks.yaml
 ```
 
-eks.yaml
+**eks.yaml**
 ```
 ---
 apiVersion: eksctl.io/v1alpha5
@@ -100,16 +113,22 @@ managedNodeGroups:
 ```
 eksctl create cluster -f eks.yaml --dry-run
 
+
 eksctl create cluster -f eks.yaml
 
+
 kubectl get nodes -o wide
+
 
 CLUSTER_NAME=kubeflow-eks-000
 CLUSTER_REGION=us-west-2
 
+
 eksctl utils associate-iam-oidc-provider --cluster $CLUSTER_NAME --approve -v4
 
+
 aws eks update-kubeconfig --name $CLUSTER_NAME --region ${AWS_REGION}
+
 
 export KUBEFLOW_VERSION=v1.5.1
 export AWS_VERSION=v1.5.1-aws-b1.0.0
@@ -123,13 +142,16 @@ cd deployments/vanilla
 
 while ! kustomize build . | kubectl apply -f -; do echo "Retrying"; sleep 30; done
 
+
 ns_array=(kubeflow kubeflow-user-example-com kserve cert-manager istio-system auth knative-eventing knative-serving)
+
 
 for i in ${ns_array[@]}; do 
   echo "[+] kubectl get pods -n $i"
   kubectl get pods -n $i; 
   echo "---"
 done
+
 
 kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 --address=localhost
 ```
@@ -146,11 +168,14 @@ kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 --address=
 ```
 kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 –address=localhost
 
+
 kubectl delete profile –all
+
 
 cd ~/environment/ch10/kubeflow-manifests/
 cd deployments/vanilla/
 kustomize build . | kubectl delete -f -
+
 
 eksctl delete cluster -region $CLUSTER_REGION –name $CLUSTER_NAME
 ```
