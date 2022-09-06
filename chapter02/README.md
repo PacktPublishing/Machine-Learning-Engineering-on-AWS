@@ -23,11 +23,14 @@ This chapter introduces the Deep Learning AMIs and how these are used to help ma
 ```
 mkdir -p data
 
+
 wget https://bit.ly/3h1KBx2 -O data/training_data.csv 
 wget https://bit.ly/3gXYM6v -O data/validation_data.csv 
 wget https://bit.ly/35aKWem -O data/test_data.csv
 
+
 yum install tree
+
 
 tree
 ```
@@ -37,9 +40,12 @@ tree
 ```
 mkdir -p logs
 
+
 wget https://bit.ly/33D0iYC -O train.py
 
+
 tree
+
 
 for a in /sys/bus/pci/devices/*; do echo 0 | sudo tee -a $a/numa_node; done
 ```
@@ -50,6 +56,7 @@ for a in /sys/bus/pci/devices/*; do echo 0 | sudo tee -a $a/numa_node; done
 
 ```
 python3.9 train.py
+
 
 tensorboard --logdir=logs --bind_all
 ```
