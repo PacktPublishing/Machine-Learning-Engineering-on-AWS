@@ -66,6 +66,9 @@ aws s3 cp $FILE s3://$BUCKET_NAME/input/$FILE
 ##### Querying the Database
 
 ```
+SELECT * FROM dev.public.bookings;
+
+
 SELECT COUNT(*) FROM dev.public.bookings WHERE is_cancelled = 0;
 
 
