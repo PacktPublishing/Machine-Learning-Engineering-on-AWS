@@ -33,6 +33,8 @@ yum install tree
 
 
 tree
+
+head data/training_data.csv
 ```
 
 #### ➤ Training an ML model
