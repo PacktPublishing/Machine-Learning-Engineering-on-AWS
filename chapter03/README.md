@@ -88,9 +88,6 @@ chmod +x *.sh
 cat build.sh
 
 
-docker build -t dlclambda .
-
-
 ./build.sh
 
 
