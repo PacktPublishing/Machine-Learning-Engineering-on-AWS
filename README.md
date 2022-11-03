@@ -62,10 +62,12 @@ With the following software and hardware list you can run all code files present
 | --------- | ---------------------------------| -----------------------------------|
 | 1-11      | AWS Account                      | Windows, Mac OS X, and Linux (Any) |
 
-We also provide a PDF file that has color images of the screenshots/diagrams used in this book. 
+We also provide a PDF file that has color images of the screenshots/diagrams used in this book. [Click here to download it]( https://packt.link/jeBII).
 
 ## Get to Know the Author
-**Joshua Arvin Lat** is the Chief Technology Officer (CTO) of NuWorks Interactive Labs, Inc. He previously served as the CTO of three Australian-owned companies and also served as the Director for Software Development and Engineering for multiple e-commerce start-ups in the past, which allowed him to be more effective as a leader. Years ago, he and his team won first place in a global cybersecurity competition with their published research paper. He is also an AWS Machine Learning Hero and has shared his knowledge at several international conferences, discussing practical strategies on machine learning, engineering, security, and management.
+
+**Joshua Arvin Lat** 
+is the Chief Technology Officer (CTO) of NuWorks Interactive Labs, Inc. He previously served as the CTO of three Australian-owned companies and also served as the Director for Software Development and Engineering for multiple e-commerce start-ups in the past, which allowed him to be more effective as a leader. Years ago, he and his team won first place in a global cybersecurity competition with their published research paper. He is also an AWS Machine Learning Hero and has shared his knowledge at several international conferences, discussing practical strategies on machine learning, engineering, security, and management.
 ### Download a free PDF
 
  <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
