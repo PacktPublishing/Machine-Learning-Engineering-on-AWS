@@ -2,8 +2,13 @@
 
 <a href="https://www.packtpub.com/product/machine-learning-engineering-on-aws/9781803247595"><img src="https://static.packt-cdn.com/products/9781803247595/cover/smaller" alt="Book Name" height="100px" align="left"></a>
 
-**Chapter 2: Deep Learning AMIs** <br />
+**Chapter 2: Deep Learning AMIs** 
+
 This chapter introduces the Deep Learning AMIs and how these are used to help machine learning practitioners perform ML experiments faster inside EC2 instances. Here, we will also dive a bit deeper into how AWS pricing works for EC2 instances so that we will have a better idea on how to optimize and reduce the overall costs of running ML workloads in the cloud.
+
+**NOTES** 
+- In case you encounter an error similar to `You have requested more vCPU capacity than your current vCPU limit of 0 allows for...`, feel free to request for an EC2 limit increase http://aws.amazon.com/contact-us/ec2-request to reach out to AWS support.
+- Feel free to skip to Chapter 3 while waiting for the EC2 limit increase to be applied to your account (it takes around 1-2 days for this to be approved)
 
 <br />
 
